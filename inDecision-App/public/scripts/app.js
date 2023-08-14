@@ -1,56 +1,42 @@
 'use strict';
 
-console.log('App is running!');
+console.log('App is running.');
 
-var count = 0;
-
-var addOne = function addOne() {
-  count++;
-  renderApp();
-};
-var subOne = function subOne() {
-  count--;
-  renderApp();
-};
-var reset = function reset() {
-  count = 0;
-  renderApp();
+var details = {
+    text: 'I built this app all by myself.',
+    status: false
 };
 
-var renderApp = function renderApp() {
-
-  var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-      'h1',
-      null,
-      'Counter'
-    ),
-    React.createElement(
-      'p',
-      null,
-      count
-    ),
-    React.createElement(
-      'button',
-      { id: 'plusOne', onClick: addOne },
-      '+1'
-    ),
-    React.createElement(
-      'button',
-      { id: 'minusOne', onClick: subOne },
-      '-1'
-    ),
-    React.createElement(
-      'button',
-      { id: 'reset', onClick: reset },
-      '0'
-    )
-  );
-
-  var appRootTwo = document.getElementById('personal-info');
-  ReactDOM.render(template, appRootTwo);
+var toggleSwitch = function toggleSwitch() {
+    details.status = !details.status;
+    render();
 };
 
-renderApp();
+var rootApp = document.getElementById('root');
+
+var render = function render() {
+
+    var template = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            null,
+            'Toggle Visibility'
+        ),
+        details.status && React.createElement(
+            'p',
+            null,
+            details.text
+        ),
+        React.createElement(
+            'button',
+            { onClick: toggleSwitch },
+            details.status ? 'Hide' : 'show'
+        )
+    );
+
+    ReactDOM.render(template, rootApp);
+};
+
+render();
