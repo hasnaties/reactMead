@@ -1,62 +1,80 @@
-console.log('App is running!');
+class IndecisionApp extends React.Component {
+    
+    render(){
 
-const obj = {
-    title: 'Indecision App',
-    subtitle: 'The Website.',
-    options: [],
+        const options = [1, 2, 4]
+        return (
+        <div>
+            <Header />
+            <AddOption />
+            <Options optionsList = {options}/>
+    </div>
+        );
+    }
 }
 
-const onFormSubmit = (e) => {
-    e.preventDefault();
+class Header extends React.Component {
+    
+    render(){
+        return (
+            <h1>Indecision App</h1>
+        );
+    }
+}
 
-    const option = e.target.elements.option.value;
-    if (option) {
-        obj.options.push(option)
+class Option extends React.Component {
+    
+    render() { 
+        return (
+            <div>
+                <p> {this.props.option} </p>
+            </div>
+        );
+    }
+}
+
+class Options extends React.Component {
+    
+    render (){
+        return (
+            <div>
+                <button onClick= {this.removeAll}>Remove All</button>
+                <p>Options: </p>
+                {this.props.optionsList.map((option, index) => {
+                    return <Option  key= {index} option= {option}/>
+                })}
+            </div>
+        );
     }
 
-    e.target.elements.option.value = '';
-
-    render();
+    removeAll (){
+        alert('Removed all.')
+    }
 }
 
-const removeAll = () => {
-    obj.options.length = 0;
-    render();
-}
+class AddOption extends React.Component {
 
-const appRootTwo = document.getElementById('root');
+    render (){
+        return (
+            <div>
+                <form onSubmit= {this.onSubmitForm}>
+                    <input type= "text" name= "addOption"></input>
+                    <button type= "submit">Add</button>
+                </form>
+            </div>
+        );
+    }
 
-const render = () => {
+    onSubmitForm (e){
 
-    const template = (
-        <div>
-        <h1>{obj.title}</h1>
-        {obj.subtitle && <p>{obj.subtitle}</p>}
+        e.preventDefault();
+        const option = e.target.elements.addOption.value.trim();
 
-        <p>{obj.options.length > 0 ? 'Options: ' : 'No Options'}</p>
-        <p>{obj.options.length}</p>
-         
-        <form onSubmit={onFormSubmit}>
-            <input type="text" name="option" id="option1"/>
-            <button type="submit">Add</button>
-          </form>
-
-        <button type="reset" onClick={removeAll}>Remove All</button>
-
-        <p>List:</p>
-      <ol>
-        {
-            obj.options.map((option, index) => {
-
-                return <li key={index}>{option}</li>
-        })
+        if (option) {
+            return alert(option);
         }
-      </ol>
-
-    </div>
-    );
-
-    ReactDOM.render(template, appRootTwo);
+        return;
+    }
 }
 
-render();
+ReactDOM.render(<IndecisionApp />, document.getElementById('root'));
