@@ -49,20 +49,25 @@ class IndecisionApp extends React.Component {
         <div>
             <Header />
 
-            <Action 
-              handleAction= {this.handleAction} 
-              btnState= {this.state.options.length > 0}
-            />
+            <div className='container'>
+              <Action 
+                handleAction= {this.handleAction} 
+                btnState= {this.state.options.length > 0}
+              />
 
-            <AddOption 
-              handleAddOption= {this.handleAddOption}
-            />
+              <div className='widget'>
 
-            <Options 
-              optionsList= {this.state.options}
-              removeAll= {this.handleDeleteOptions}
-              removeOne= {this.handleDeleteOption}
-            />
+                <Options 
+                  optionsList= {this.state.options}
+                  removeAll= {this.handleDeleteOptions}
+                  removeOne= {this.handleDeleteOption}
+                />
+
+                <AddOption 
+                  handleAddOption= {this.handleAddOption}
+                />
+              </div>
+            </div>
 
             <OptionModal 
               selectedOption= {this.state.selectedOption}
@@ -70,6 +75,27 @@ class IndecisionApp extends React.Component {
             />
     </div>
         );
+    }
+
+    componentDidMount = () => {
+
+      try {
+
+        const options = JSON.parse(localStorage.getItem('options'));
+        if (options) {
+          this.setState(() => ({options}));
+        }
+      } catch (error) {
+        console.log('didMountError', error);
+      }
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+
+      if (prevState.options.length !== this.state.options.length) {
+          const jsonOptions = JSON.stringify(this.state.options);
+          localStorage.setItem('options', jsonOptions);
+      }
     }
 }
 
