@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
 
-const Info = (props) => (
+const Info = ({isAuthenticated}) => (
   <div>
-    {props.isAuthenticated ? <p>Welcome!</p> : <p>Please login!</p>}
+    {isAuthenticated ? <p>Welcome!</p> : <p>Please login!</p>}
   </div>
 );
 
@@ -15,4 +15,4 @@ const withInfo = (WrappedComponent) => {
 
 const IsAuth = withInfo(Info)
 
-ReactDOM.render(<IsAuth isAuthenticated= {false}/>, document.getElementById('root'))
+ReactDOM.render(<IsAuth isAuthenticated= {true}/>, document.getElementById('root'))
