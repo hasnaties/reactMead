@@ -13,21 +13,31 @@ const store = configureStore()
 
 
 // get visibleExpenses
-store.subscribe(() => {
-  const storeState = store.getState();
-  console.log(getVisibleExpenses(storeState.expenses, storeState.filters))
-})
+// store.subscribe(() => {
+//   const storeState = store.getState();
+//   console.log(getVisibleExpenses(storeState.expenses, storeState.filters))
+// })
+
 // addExpense - water bill , gas bill
 store.dispatch(addExpense({
   description: 'water bill',
-  amount: 15000
+  amount: 15000,
+  createdAt: 10000
 }))
 store.dispatch(addExpense({
   description: 'gas bill',
-  amount: 5000
+  amount: 5000,
+  createdAt: 1000
 }))
+store.dispatch(addExpense({
+  description: 'rent',
+  amount: 500000,
+  createdAt: 100
+}))
+
+
 // set textFilter to water
-store.dispatch(editTextFilter('water'))
+store.dispatch(editTextFilter(''))
 
 const jsx = (
   <Provider store={store}>
