@@ -1,9 +1,16 @@
-import React from "react"
+import React from "react";
+import moment from 'moment';
+import { SingleDatePicker } from "react-dates";
+import "react-dates/lib/css/_datepicker.css" ;
 
 export default class ExpenseForm extends React.Component{
   state = {
     description: '',
-    note: ''
+    note: '',
+    amount: '',
+    createdAt: moment(),
+    calenderFocused: false,
+    error: ''
   };
 
   onDescriptionChange = (e) => {
@@ -16,10 +23,39 @@ export default class ExpenseForm extends React.Component{
     this.setState (() => ({note}))
   }
 
+  onAmountChange = (e) => {
+    const amount = e.target.value;
+    
+    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/) ) {
+      this.setState (() => ({ amount }))
+    }
+  }
+
+  onDateChange = (createdAt) => {
+    if (createdAt) {
+      this.setState (() => ({ createdAt }));
+    }
+  }
+
+  onFocusChange = ({focused}) => {
+    this.setState (() => ({ calenderFocused: focused }));
+  } 
+
+  onSubmitForm = (e) => {
+    e.preventDefault();
+    if (!this.state.description || !this.state.amount) {
+      this.setState(() => ({error: 'Please provide description and amount.'}));
+    }else{
+      this.setState(() => ({error: ''}));
+    }
+  }
+
   render () {
     return (
       <div>
-        <form>
+        {this.state.error && <p>{this.state.error}</p>}
+
+        <form onSubmit={this.onSubmitForm}>
           <input 
             type="text"
             placeholder="Description"
@@ -29,10 +65,21 @@ export default class ExpenseForm extends React.Component{
           />
 
           <input 
-            type="number"
+            type="text"
             placeholder="Amount"
+            value={this.state.amount}
+            onChange={this.onAmountChange}
           />
-          <br />
+
+          <SingleDatePicker 
+            date= {this.state.createdAt}
+            onDateChange= {this.onDateChange}
+            focused= {this.state.calenderFocused}
+            onFocusChange= {this.onFocusChange}
+            numberOfMonths= {1}
+            isOutsideRange= {() => false}
+          />
+
           <textarea 
             type="text"
             placeholder="Enter your Note (Optional)"
