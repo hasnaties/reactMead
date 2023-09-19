@@ -20,6 +20,27 @@ export const addExpense = (
   }
 });
 
+// EDIT_EXPENSE Action OBJ
+export const editExpense = (
+  {
+    id,
+    description = '',
+    note = '',
+    amount = 0,
+    createdAt = 0
+  } = {}
+) => ({
+
+  type: "EDIT_EXPENSE",
+  updates: {
+    id,
+    description,
+    note,
+    amount,
+    createdAt
+  }
+});
+
 // remove Expense Action OBJ
 export const removeExpense = ({ id } = {}) => ({
 
