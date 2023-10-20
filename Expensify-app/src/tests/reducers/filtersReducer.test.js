@@ -39,29 +39,32 @@ test("Setup sortBy: Date", () => {
 // Set Filter text
 test("Set text Filter", () => {
   
-  const state = filtersReducer(undefined, { type: "EDIT_TEXT_FILTER", text: "rent"});
+  const text = 'rent';
+  const state = filtersReducer(undefined, { type: "EDIT_TEXT_FILTER", text});
   
-  expect(state.text).toBe('rent');
+  expect(state.text).toBe(text);
 });
 
 // Set Filter startDate
 test("Set text startDate", () => {
   
+  const startDate = moment();
   const state = filtersReducer(undefined, { 
     type: "SET_START_DATE", 
-    date: moment(0).valueOf()
+    startDate
   });
   
-  expect(state.startDate).toBe(moment(0).valueOf());
+  expect(state.startDate).toEqual(startDate);
 });
 
 // Set Filter endDate
 test("Set text endDate", () => {
   
+  const endDate = moment();
   const state = filtersReducer(undefined, { 
     type: "SET_END_DATE", 
-    date: moment(0).valueOf()
+    endDate
   });
   
-  expect(state.endDate).toBe(moment(0).valueOf());
+  expect(state.endDate).toEqual(endDate);
 });
