@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render list item 1`] = `
+<div>
+  <Link
+    replace={false}
+    to="/edit/2"
+  >
+    <h3>
+      this is the rent.
+    </h3>
+  </Link>
+  <p>
+    50
+     - 
+    -259200000
+  </p>
+</div>
+`;
