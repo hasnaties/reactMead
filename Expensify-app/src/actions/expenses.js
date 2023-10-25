@@ -21,7 +21,7 @@ export const addExpense = (
 });
 
 // EDIT_EXPENSE Action OBJ
-export const editExpense = ( id, updates) => ({
+export const editExpense = (id, updates) => ({
 
   type: "EDIT_EXPENSE",
   id,

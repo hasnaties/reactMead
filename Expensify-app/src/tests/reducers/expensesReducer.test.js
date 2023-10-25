@@ -51,11 +51,11 @@ test('should Add expense', () => {
 test('should Edit expense', () => {
   
   const updates = {
-    id: '3',
     description: 'This is the bill.'
   };
   const action = {
     type: 'EDIT_EXPENSE',
+    id: '3',
     updates
   };
   const result = expensesReducer(expenses, action);

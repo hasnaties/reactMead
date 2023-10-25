@@ -9,7 +9,7 @@ export default (state = [], action) => {
 
     case "EDIT_EXPENSE":
       return state.map((expense) => {
-        if (expense.id === action.updates.id) {
+        if (expense.id === action.id) {
           return {
             ...expense,
             ...action.updates
