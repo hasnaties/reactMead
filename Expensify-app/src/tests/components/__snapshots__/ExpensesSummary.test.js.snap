@@ -2,25 +2,26 @@
 
 exports[`should Render correctly with multiple expenses 1`] = `
 <div>
-  <p>
+  <h1>
     Viewing 
     2
-     expense
-    s
+     
+    expenses
      totalling 
     $94.34
-  </p>
+  </h1>
 </div>
 `;
 
 exports[`should Render correctly with single expense 1`] = `
 <div>
-  <p>
+  <h1>
     Viewing 
     1
-     expense
+     
+    expense
      totalling 
     $94.34
-  </p>
+  </h1>
 </div>
 `;
