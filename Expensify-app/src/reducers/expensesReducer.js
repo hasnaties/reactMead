@@ -22,6 +22,9 @@ export default (state = [], action) => {
 
     case "REMOVE_EXPENSE":
       return (state.filter(({id}) => id !== action.id));
+    
+    case "SET_EXPENSES":
+      return action.expenses;
       
     default:
       return state;
