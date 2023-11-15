@@ -7,7 +7,8 @@ import {
   startAddExpense, 
   setExpenses, 
   startSetExpenses, 
-  startRemoveExpense 
+  startRemoveExpense, 
+  startEditExpense
 } from '../../actions/expenses';
 import expenses from '../fixtures/expenses';
 import database from '../../firebase/firebase';
@@ -41,6 +42,31 @@ test("Setup edit expense action object", () => {
     updates: {
       ...testData
     }
+  });
+});
+
+test("Should update/edit data in database", (done) => {
+  
+  const store = createMockStore({});
+  const id = expenses[1].id;
+  const updates = {
+    note: 'Apartment Rent'
+  }
+
+  store.dispatch(startEditExpense(id, updates)).then(() => {
+    
+    // redux-store assertion
+    expect(store.getActions()[0]).toEqual({
+      type: "EDIT_EXPENSE",
+      id,
+      updates
+    });
+
+    return database.ref(`expenses/${id}`).once('value');
+  }).then((snap) => {
+    // assertion for DB
+    expect(snap.val().note).toBe(updates.note);
+    done();
   });
 });
 
